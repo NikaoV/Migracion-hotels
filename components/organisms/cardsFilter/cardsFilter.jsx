@@ -1,11 +1,12 @@
 "use client";
-import { useState } from "react";
-import { hotelData } from "../../../services/getHotelsServices";
+import Alert from '@mui/material/Alert'
+import Stack from '@mui/material/Stack';
+import { useState, useEffect } from "react";
 import { CardHotel } from "../../molecules/card/card";
 import { Header } from "../../molecules/header/header";
 import styles from "./cardsFilter.module.css";
 import { hotelRooms } from "@/utils/helper";
-import Alert from "@mui/material/Alert";
+
 
 export const CardsFilter = () => {
   const [selectedCountry, setSelectedCountry] = useState("all");
@@ -13,13 +14,26 @@ export const CardsFilter = () => {
   const [selectedSizes, setSelectedSizes] = useState("all");
   const [dateTo, setDateTo] = useState("all");
   const [dateFrom, setDateFrom] = useState("all");
-  
-  console.log(dateFrom, dateTo);
+  // const [hotelsData, setHotelsData] = useState([]);
+
+  // const fetchHotels = async () => {
+  //   try {
+  //     const data = await hotelData();
+  //   setHotelsData(data);
+  //   } catch (error) {
+  //     console.error("Error en los Hoteles");
+  //   }
+
+    
+  // };
+  // useEffect(() => {
+  //   fetchHotels();
+  // }, []);
 
   const filterHotels = (hotels) => {
-    const newDateFrom= new Date(dateFrom);
-    const newDateTo= new Date(dateTo)
-    const todayDate = new Date().setHours(0,0,0,0);
+    const newDateFrom = new Date(dateFrom);
+    const newDateTo = new Date(dateTo);
+    const todayDate = new Date().setHours(0, 0, 0, 0);
     const dateCheckInLocal = new Date(
       newDateFrom.getTime() + newDateFrom.getTimezoneOffset() + 6000
     );
@@ -27,8 +41,8 @@ export const CardsFilter = () => {
       newDateTo.getTime() + newDateTo.getTimezoneOffset() + 6000
     );
     const filteredHotels = hotels.filter((hotel) => {
-      const availabilityHotels = todayDate + hotel.availabilityFrom
-      const availabilityDays = availabilityHotels + hotel.availabilityTo
+      const availabilityHotels = todayDate + hotel.availabilityFrom;
+      const availabilityDays = availabilityHotels + hotel.availabilityTo;
 
       const isCountryMatch =
         selectedCountry === "all" ||
@@ -42,11 +56,10 @@ export const CardsFilter = () => {
       const isSizesMatch =
         selectedSizes === "all" || selectedSizes === hotelRooms(hotel.rooms);
 
-      const availability = 
-      (dateFrom === 'all' && dateTo === 'all') ||
-      (dateCheckInLocal.getTime() >= availabilityHotels &&
-      dateCheckOutLocal.getTime() <= availabilityDays);
-
+      const availability =
+        (dateFrom === "all" && dateTo === "all") ||
+        (dateCheckInLocal.getTime() >= availabilityHotels &&
+          dateCheckOutLocal.getTime() <= availabilityDays);
 
       return isCountryMatch && isPriceMatch && isSizesMatch && availability;
     });
@@ -60,22 +73,22 @@ export const CardsFilter = () => {
         updateCity={setSelectedCountry}
         updatePrice={setSelectedPrice}
         updateSizes={setSelectedSizes}
-        changeDateFrom= {setDateFrom}
-        changeDateTo= {setDateTo}
+        changeDateFrom={setDateFrom}
+        changeDateTo={setDateTo}
       />
-      <div className={styles.cardsConteainer}>
-        {filterHotels(hotelData).length > 0 ? (
-          filterHotels(hotelData).map((hotel, index) => (
+      {filterHotels(hotelsData).length > 0 ? (
+        <div className={styles.cardsConteainer}>
+          {filterHotels(hotelsData).map((hotel, index) => (
             <CardHotel key={index} hotel={hotel} />
-          ))
-        ) : (
-          <Alert variant="outlined" severity="error" sx={{ marginLeft: "400px",marginRight: "-450px" }} >
-            <font size="4">
-          El hotel que esta buscando  No se encuentra!
-          </font>
-        </Alert>
-        )}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <Stack sx={{ width: "37%", marginLeft:50, marginTop:5}} spacing={2}>
+          <Alert variant="outlined" severity="error" sx={{borderRadius: 5, boxShadow: 8}}>
+           <font size="4">El hotel que estas buscando — No se encuentra!</font> 
+          </Alert>
+        </Stack>
+      )}
     </>
   );
 };

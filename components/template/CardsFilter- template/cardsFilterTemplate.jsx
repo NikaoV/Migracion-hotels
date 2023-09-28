@@ -1,10 +1,10 @@
 import { CardsFilter } from "../../organisms/cardsFilter/cardsFilter"
 
 
-export const CardsFilterTemplate = () => {
+export const CardsFilterTemplate = ({getDataHotels}) => {
     return (
      
-        <CardsFilter/>
+        <CardsFilter  getDataHotels = {getDataHotels}/>
     
     )
 }
