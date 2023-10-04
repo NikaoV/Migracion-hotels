@@ -8,7 +8,7 @@ export default async function Home() {
   console.log(getDataHotels)
   return (
   <>
-    <CardsFilterTemplate  getDataHotels ={getDataHotels}/>
+    <CardsFilterTemplate  getDataHotels={getDataHotels}/>
   </>
   );
 }
