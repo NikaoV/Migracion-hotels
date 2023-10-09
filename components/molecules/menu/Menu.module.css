@@ -1,6 +1,6 @@
 .containerMenu{
     position: fixed;
-    background-color:rgba(0, 0, 0, 0.559);
+    background-color:rgba(55, 61, 84, 0.559);
 }
 .contentOptionMenu {
     display: flex;
@@ -12,12 +12,12 @@
     color: #e26811;
 }
 .labelMenu:hover {
-    color: #4c2204;
+    color: #e08849;
 }
 
 .hamburgerButton {
     color: #e26811;
 }
 .hamburgerButton:hover {
-    color: #4c2204;
+    color: #e08849;
 }

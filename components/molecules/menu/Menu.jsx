@@ -13,11 +13,11 @@ export const Menu = () => {
       <Toolbar variant="dense" className={styles.contentOptionMenu}>
       <Typography variant="h6" color="inherit" component="div" className={styles.labelMenu}>
           Home
-        </Typography>
+        </Typography> 
         <Typography variant="h6" color="inherit" component="div" className={styles.labelMenu}>
           Reservas
         </Typography>
-        <IconButton  edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+        <IconButton  edge="start" color="inherit" aria-label="menu" sx={{ mr: 2  }}>
           <MenuIcon className={styles.hamburgerButton} />
         </IconButton>
       </Toolbar>
