@@ -1,23 +1,33 @@
-.containerMenu{
+.containerMenu {
+    width: 100%;
     position: fixed;
-    background-color:rgba(55, 61, 84, 0.559);
-}
-.contentOptionMenu {
+    height: 50px;
+    top: 0px;
+    background-color: rgba(36, 36, 46, 0.692);
+    margin-bottom: 100px;
+  }
+  
+  .menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .contentOptionMenu {
     display: flex;
     justify-content: flex-end;
-    gap: 1rem;
-    margin-right: -2rem;
-}
-.labelMenu{
+    gap: 1.6rem;
+    text-decoration: none;
+  }
+  
+  .labelMenu {
     color: #e26811;
-}
-.labelMenu:hover {
-    color: #e08849;
-}
-
-.hamburgerButton {
-    color: #e26811;
-}
-.hamburgerButton:hover {
-    color: #e08849;
-}
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 1.8rem;
+  }
+  .labelMenu:hover {
+    color: #eb975c;
+    cursor: pointer;
+  }

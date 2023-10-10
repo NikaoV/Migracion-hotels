@@ -1,12 +1,13 @@
 "use client";
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { CardHotel } from "../../molecules/card/card";
 import { Header } from "../../molecules/header/header";
 import styles from "./cardsFilter.module.css";
 import { hotelRooms } from "@/utils/helper";
 import { Snackbar } from "@mui/material";
+import { AppContext } from "@/store/CurrentProvider";
 
 export const CardsFilter = ({ getDataHotels }) => {
   const [selectedCountry, setSelectedCountry] = useState("all");
@@ -16,6 +17,12 @@ export const CardsFilter = ({ getDataHotels }) => {
   const [dateFrom, setDateFrom] = useState("all");
   const [filterHotels, setFilterHotels] = useState([]);
   const [showMessage, setShowMessage] = useState(false);
+  const [showError, setshowError] = useState(false);
+  const {setHomePage} = useContext(AppContext)
+
+  useEffect(()=>{
+    setHomePage()
+  }, [])
   // const [hotelsData, setHotelsData] = useState([]);
 
   // const fetchHotels = async () => {
@@ -116,7 +123,7 @@ export const CardsFilter = ({ getDataHotels }) => {
       {filterHotels.length > 0 ? (
         <div className={styles.cardsConteainer}>
           {filterHotels.map((hotel, index) => (
-            <CardHotel key={index} hotel={hotel} snackbar={setShowMessage} />
+            <CardHotel key={index} hotel={hotel} snackbar={setShowMessage} snackbarError={setshowError} />
           ))}
         </div>
       ) : (
@@ -139,6 +146,17 @@ export const CardsFilter = ({ getDataHotels }) => {
       >
   <Alert  className={styles.buttonCardHotel} severity="success"  sx={{ borderRadius: 5, boxShadow: 8 }}>
   <font size="4"> Tu hotel se ha reservado!</font> 
+  </Alert>
+      </Snackbar>
+      <Snackbar
+      onchorOrigin={{vertical: 'bottom', horizontal: 'center'}}
+        open={showError}
+        autoHideDuration={4000}
+        onClose={setshowError}
+        sx={{ width: "37%", marginLeft: 60, marginTop: 5 }}
+      >
+  <Alert  className={styles.buttonCardHotel} severity="error"  sx={{ borderRadius: 5, boxShadow: 8 }}>
+  <font size="4"> Tu hotel ya esta reservado!</font> 
   </Alert>
       </Snackbar>
     </>
